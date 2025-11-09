@@ -1,28 +1,27 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import Challenges from './components/Challenges';
+import About from './components/About';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [unlocked, setUnlocked] = useState({});
+
+  function handleUnlock(section) {
+    setUnlocked((u) => ({ ...u, [section]: true }));
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
+    <div className="min-h-screen bg-black text-white font-inter">
+      <Navbar />
+      <Hero />
+      <Challenges onUnlock={handleUnlock} />
+      <About unlocked={unlocked} />
+      <footer className="py-10 text-center text-white/50 text-sm border-t border-white/10 bg-black">
+        <p>© {new Date().getFullYear()} CTFfolio • Built as an interactive CTF-style portfolio experience.</p>
+      </footer>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
